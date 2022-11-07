@@ -44,7 +44,13 @@ class BreweryClientTest {
         //given
         BeerDto beerDto = BeerDto.builder().beerName("New Beer").build();
 
-        //Tests are green as long as RestTemplate is working fine
+        //Tests are green as long as RestTemplate is working fine (2xx)
         client.updateBeer(UUID.randomUUID(), beerDto);
+    }
+
+    @Test
+    void testDeleteBeer() {
+        //Tests are green as long as RestTemplate is working fine (2xx)
+        client.deleteBeer(UUID.randomUUID());
     }
 }
