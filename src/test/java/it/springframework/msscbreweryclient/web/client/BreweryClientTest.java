@@ -1,6 +1,7 @@
 package it.springframework.msscbreweryclient.web.client;
 
 import it.springframework.msscbreweryclient.web.model.BeerDto;
+import it.springframework.msscbreweryclient.web.model.CustomerDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /*
 *   In order to run this integration test mssc-brewery project must be running
 * */
-@SpringBootTest //bring up spring context
+@SpringBootTest //brings up spring context
 class BreweryClientTest {
 
     @Autowired
@@ -52,5 +53,40 @@ class BreweryClientTest {
     void testDeleteBeer() {
         //Tests are green as long as RestTemplate is working fine (2xx)
         client.deleteBeer(UUID.randomUUID());
+    }
+
+    @Test
+    void getCustomerById() {
+        //given
+        CustomerDto customerDto = client.getCustomerById(UUID.randomUUID());
+
+        assertNotNull(customerDto);
+    }
+
+    @Test
+    void testSaveCustomer() {
+        //given
+        CustomerDto customerDto = CustomerDto.builder().name("Ivan Krstic").build();
+
+        URI uri = client.saveNewCustomer(customerDto);
+
+        assertNotNull(uri);
+
+        System.out.println(uri.toString());
+    }
+
+    @Test
+    void testUpdateCustomer() {
+        //given
+        CustomerDto customerDto = CustomerDto.builder().name("Ivan Krstic").build();
+
+        //Tests are green as long as RestTemplate is working fine (2xx)
+        client.updateCustomer(UUID.randomUUID(), customerDto);
+    }
+
+    @Test
+    void testDeleteCustomer() {
+        //Tests are green as long as RestTemplate is working fine (2xx)
+        client.deleteCustomer(UUID.randomUUID());
     }
 }
