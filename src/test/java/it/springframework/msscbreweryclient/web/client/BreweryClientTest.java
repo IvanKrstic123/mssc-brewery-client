@@ -21,6 +21,7 @@ class BreweryClientTest {
 
     @Test
     void getBeerById() {
+        //given
         BeerDto beerDto = client.getBeerById(UUID.randomUUID());
 
         assertNotNull(beerDto);
@@ -28,6 +29,7 @@ class BreweryClientTest {
 
     @Test
     void testSaveNewBeer() {
+        //given
         BeerDto beerDto = BeerDto.builder().beerName("New_Beer").build();
 
         URI uri = client.saveNewBeer(beerDto);
@@ -35,5 +37,14 @@ class BreweryClientTest {
         assertNotNull(uri);
 
         System.out.println(uri.toString());
+    }
+
+    @Test
+    void testUpdateBeer() {
+        //given
+        BeerDto beerDto = BeerDto.builder().beerName("New Beer").build();
+
+        //Tests are green as long as RestTemplate is working fine
+        client.updateBeer(UUID.randomUUID(), beerDto);
     }
 }
